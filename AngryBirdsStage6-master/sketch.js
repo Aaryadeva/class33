@@ -15,7 +15,9 @@ var birds=[]
 function preload() {
     //backgroundImg = loadImage("sprites/bg.png");
     getTime();
-    
+    pigSnort=loadSound("sounds/sounds/pig_snort.mp3")
+    birdFly=loadSound("sounds/sounds/bird_fly.mp3")
+    birdSelect=loadSound("sounds/sounds/bird_select.mp3")
 
 }
 
@@ -94,12 +96,14 @@ function mouseDragged(){
     {
     Matter.Body.setPosition(birds[birds.length-1].body, {x: mouseX , y: mouseY});
     Matter.Body.applyForce(birds[birds.length-1].body,birds[birds.length-1].body.position,{x: 5 , y: -5});
+    birdSelect.play()
     }
 }
 
 
 function mouseReleased(){
     slingshot.fly();
+    birdFly.play()
     birds.pop();
     gameState="launched"
 }
@@ -109,6 +113,7 @@ function keyPressed(){
         Matter.Body.setPosition(birds[birds.length-1].body, {x: 200, y: 50});
         slingshot.attach(birds[birds.length-1].body);
         gameState="onSling"
+        birdSelect.play()
     }
 }
 async function getTime()
